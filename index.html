@@ -1516,6 +1516,7 @@ dialog.mt-dlg::backdrop{background:rgba(3,3,3,.82);backdrop-filter:blur(8px)}
 .d-mt .mt-skip{position:absolute;right:var(--pad);top:clamp(24px,4.4vh,52px);z-index:9;display:inline-flex;align-items:center;gap:8px;cursor:pointer;
   font:700 11px/1 var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#0d0d0d;background:rgba(255,255,255,.9);border:1px solid rgba(0,0,0,.2);padding:11px 14px;border-radius:99px;
   transition:border-color .2s,color .2s,background .2s}
+.d-mt.fim .mt-skip{opacity:0;pointer-events:none}
 .d-mt .mt-skip:hover,.d-mt .mt-skip:focus-visible{border-color:var(--laranja);color:var(--laranja);background:rgba(255,106,19,.08);outline:none}
 .d-mt .mt-skip svg{width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
   background:rgba(255,255,255,.95);color:#0d0d0d;border:1px solid rgba(255,106,19,.7);border-radius:14px;padding:16px 22px 18px;opacity:0;transition:opacity .6s .25s,transform .6s .25s;
@@ -4504,12 +4505,9 @@ const DATA = [
   ['wheel','keydown','touchstart','touchend'].forEach(function(ev){dlg.addEventListener(ev,function(e){if(ev==='keydown'&&e.key==='Escape')return;e.stopPropagation();},{passive:true});});
   document.addEventListener('keydown',function(e){if(e.key==='Enter'&&sec.classList.contains('ativa')&&!dlg.open){openDetail(clamp(Math.round(pos),0,N-1));}});
 
-  /* PULAR: vai direto para a próxima dobra do site (usa o botão de avançar do próprio site) */
+  /* PULAR: pula os cartões e para direto na tela final, com o total orçado */
   document.getElementById('mtSkip').addEventListener('click',function(){
     sec.dataset.passo=N-1;
-    var prox=document.getElementById('slProx');
-    if(prox){prox.disabled=false;prox.click();}
-    else{sec.dispatchEvent(new CustomEvent('mt:pular',{bubbles:true}));}
   });
   /* luz que segue o mouse: o JS só escreve a posição em --x e --y; o brilho é um gradiente do CSS */
   (function(){var el=sec.querySelector('.mt-final');if(!el)return;
