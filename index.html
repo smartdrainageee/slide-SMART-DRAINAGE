@@ -1611,6 +1611,24 @@ document.addEventListener('DOMContentLoaded',function(){[].forEach.call(document
 .d-ct.ativa .ct-nota{animation:moSobe .8s 1.1s cubic-bezier(.2,.8,.2,1) both}
 @media (max-width:720px){.d-ct .mo-lin{padding-top:14px;padding-bottom:14px}.d-ct .mo-tot .mo-v{font-size:18px}.d-ct .mo-tot .mo-et{font-size:20px}}
 </style>
+<style>
+/* proporção das tabelas de orçamento: mesmas colunas e mesmo tamanho de letra em todas as linhas */
+.d-mo .mo-lin{grid-template-columns:minmax(0,1.5fr) minmax(0,1.25fr) minmax(0,1.35fr)}
+.d-mo .mo-et{font-size:clamp(15px,1.4vw,21px)}
+.d-mo .mo-v,.d-mo .mo-tot .mo-v,.d-ct .mo-tot .mo-v{font-size:clamp(17px,1.85vw,28px)}
+.d-mo .mo-tot .mo-et,.d-ct .mo-tot .mo-et{font-size:clamp(17px,1.85vw,28px)}
+.d-ct .mo-lin{padding-top:clamp(16px,3vh,28px);padding-bottom:clamp(16px,3vh,28px)}
+@media (max-width:720px){.d-mo .mo-lin{grid-template-columns:1fr 1fr}.d-mo .mo-v,.d-mo .mo-tot .mo-v,.d-ct .mo-tot .mo-v{font-size:16px}.d-mo .mo-tot .mo-et,.d-ct .mo-tot .mo-et{font-size:18px}}
+/* ===== Dobra Observações ===== */
+.d-mn .mn-lista{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2.4vw,32px) clamp(24px,4vw,64px);border-top:1px solid rgba(255,255,255,.18);padding-top:clamp(18px,3vh,32px)}
+.d-mn .mn-it{display:flex;gap:clamp(14px,1.6vw,24px);opacity:0;transform:translateY(16px)}
+.d-mn .mn-n{flex:none;width:1.45em;font:700 clamp(32px,3.6vw,56px)/.9 'Highrise','Anton',Impact,sans-serif;color:#FF6A13}
+.d-mn .mn-it h3{margin:0 0 8px;font:700 clamp(18px,1.9vw,28px)/1.05 'Highrise','Anton',Impact,sans-serif;text-transform:uppercase;letter-spacing:.04em;color:#ece6da}
+.d-mn .mn-it p{margin:0;font:400 clamp(14px,1.2vw,18px)/1.5 'Liberation Sans',Arial,Helvetica,sans-serif;color:#b9b3a8}
+.d-mn.ativa .mn-it{animation:moSobe .8s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.3s + var(--i)*.12s)}
+@media (max-width:720px){.d-mn .mn-lista{grid-template-columns:1fr}.d-mn{overflow-y:auto}}
+@media (prefers-reduced-motion:reduce){.d-mn .mn-it{opacity:1;transform:none;animation:none!important}}
+</style>
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
@@ -2842,6 +2860,16 @@ setInterval(()=>$('#pb').classList.contains('o')&amp;&amp;render(),30000);
       <p class="ct-nota">Equipamentos: total da planilha de materiais, por bueiro. Aço inox, aço galvanizado e PEAD ainda serão calculados pela área de cada projeto.</p>
     </div>
   </section>
+
+  <!-- ================= DOBRA: OBSERVAÇÕES DO ORÇAMENTO ================= -->
+  <section class="dobra d-mo d-mn" aria-label="Observações do orçamento">
+    <div class="mo-wrap">
+      <div class="mo-olho"><span>Orçamento</span><b>Observações</b></div>
+      <h2>Observações <em>importantes</em></h2>
+      <ol class="mn-lista"><li class="mn-it" style="--i:0"><span class="mn-n">01</span><div><h3>Ganho de escala</h3><p>Produzido em quantidade, o valor por bueiro diminui: os materiais são comprados em maior volume e a usinagem, a montagem e os testes são feitos em lote.</p></div></li><li class="mn-it" style="--i:1"><span class="mn-n">02</span><div><h3>Total de 100 bueiros</h3><p>Calculado multiplicando o valor de um bueiro por 100, sem nenhum desconto. Em produção real, o custo tende a ficar abaixo desse número.</p></div></li><li class="mn-it" style="--i:2"><span class="mn-n">03</span><div><h3>Valores estimados</h3><p>A mão de obra é uma faixa de valores. O resultado final depende da região, da complexidade da instalação e dos fornecedores.</p></div></li><li class="mn-it" style="--i:3"><span class="mn-n">04</span><div><h3>Materiais calculados pela área</h3><p>Aço inox, aço galvanizado e PEAD ainda serão calculados pela área de cada projeto e podem alterar o total dos equipamentos.</p></div></li></ol>
+    </div>
+  </section>
+
 
 
   <section class="dobra d-pv" aria-label="Pitch de 3 minutos">
