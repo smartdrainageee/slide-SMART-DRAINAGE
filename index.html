@@ -1566,6 +1566,41 @@ dialog.mt-dlg::backdrop{background:rgba(3,3,3,.82);backdrop-filter:blur(8px)}
 <script>
 document.addEventListener('DOMContentLoaded',function(){[].forEach.call(document.querySelectorAll('img[data-copia]'),function(im){var o=document.querySelector(im.dataset.copia);if(o)im.src=o.src;});});
 </script>
+<style>
+/* ===== Dobra Mão de obra (parte do orçamento) ===== */
+.d-mo{background:#0b0b0a;color:#ece6da;display:grid;place-items:center}
+.d-mo .mo-wrap{width:min(1120px,100% - 2*clamp(20px,4vw,56px))}
+.d-mo .mo-olho{display:flex;gap:14px;align-items:center;font:700 12px/1 'Courier New',ui-monospace,monospace;letter-spacing:.22em;text-transform:uppercase;color:#9a948a}
+.d-mo .mo-olho::before{content:"";width:7px;height:7px;border-radius:50%;background:#FF6A13}
+.d-mo .mo-olho b{color:#FF6A13}
+.d-mo h2{margin:clamp(10px,1.6vh,16px) 0 clamp(22px,4vh,44px);font:700 clamp(44px,min(6vw,10.5vh),104px)/.95 'Highrise','Anton',Impact,sans-serif;text-transform:uppercase;letter-spacing:.02em;word-spacing:.1em;color:#ece6da}
+.d-mo h2 em{font-family:'The Signature',cursive;font-style:normal;font-weight:400;text-transform:none;letter-spacing:0;word-spacing:0;color:#FF6A13;-webkit-text-stroke:.012em #FF6A13;font-size:1.05em;display:inline-block;transform:rotate(-3deg);transform-origin:left bottom;margin-left:.2em;vertical-align:-.06em}
+.d-mo .mo-tab{border-top:1px solid rgba(255,255,255,.18)}
+.d-mo .mo-lin{display:grid;grid-template-columns:1.7fr 1fr 1.2fr;align-items:center;gap:clamp(12px,2vw,32px);padding:clamp(12px,2.2vh,20px) clamp(4px,1vw,14px);border-bottom:1px solid rgba(255,255,255,.1)}
+.d-mo .mo-cab{padding-top:clamp(10px,1.6vh,14px);padding-bottom:clamp(10px,1.6vh,14px);font:700 11px/1 'Courier New',ui-monospace,monospace;letter-spacing:.2em;text-transform:uppercase;color:#FF6A13}
+.d-mo .mo-cab span:nth-child(n+2),.d-mo .mo-v{text-align:right}
+.d-mo .mo-et{font:400 clamp(15px,1.5vw,22px)/1.25 'Liberation Sans',Arial,Helvetica,sans-serif;color:#ece6da}
+.d-mo .mo-v{font:700 clamp(18px,2vw,32px)/1 'Highrise','Anton',Impact,sans-serif;letter-spacing:.03em;color:#ece6da;white-space:nowrap}
+.d-mo .mo-tot{background:linear-gradient(90deg,rgba(255,106,19,.16),rgba(255,106,19,.06));border-bottom:1px solid #FF6A13;border-top:1px solid #FF6A13;margin-top:-1px}
+.d-mo .mo-tot .mo-et{font:700 clamp(18px,2vw,30px)/1 'Highrise','Anton',Impact,sans-serif;text-transform:uppercase;letter-spacing:.05em}
+.d-mo .mo-tot .mo-v{color:#FF6A13;font-size:clamp(20px,2.3vw,38px)}
+.d-mo .mo-olho,.d-mo h2,.d-mo .mo-lin{opacity:0;transform:translateY(16px)}
+.d-mo.ativa .mo-olho,.d-mo.ativa h2,.d-mo.ativa .mo-lin{animation:moSobe .8s cubic-bezier(.2,.8,.2,1) both}
+.d-mo.ativa h2{animation-delay:.08s}
+.d-mo.ativa .mo-cab{animation-delay:.2s}
+.d-mo.ativa .mo-lin[style]{animation-delay:calc(.3s + var(--i)*.09s)}
+@keyframes moSobe{to{opacity:1;transform:none}}
+@media (max-width:720px){
+  .d-mo{align-items:start;padding-top:70px;overflow-y:auto}
+  .d-mo .mo-cab{display:none}
+  .d-mo .mo-lin{grid-template-columns:1fr 1fr;gap:8px 12px}
+  .d-mo .mo-et{grid-column:1/-1}
+  .d-mo .mo-v{text-align:left;font-size:17px;white-space:normal}
+  .d-mo .mo-v::before{content:attr(data-l);display:block;margin-bottom:5px;font:700 9px/1 'Courier New',monospace;letter-spacing:.16em;text-transform:uppercase;color:#9a948a}
+  .d-mo .mo-tot .mo-v{font-size:18px}
+}
+@media (prefers-reduced-motion:reduce){.d-mo .mo-olho,.d-mo h2,.d-mo .mo-lin{opacity:1;transform:none;animation:none!important}}
+</style>
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
@@ -2767,6 +2802,20 @@ setInterval(()=>$('#pb').classList.contains('o')&amp;&amp;render(),30000);
       <div class="mt-track"><i id="mtBar"></i></div>
     </div>
     <dialog class="mt-dlg" id="mtDlg" aria-label="Detalhes do equipamento"><div class="mt-sheet" id="mtSheet"></div></dialog>
+  </section>
+
+  
+  <!-- ================= DOBRA: MÃO DE OBRA (parte do orçamento) ================= -->
+  <section class="dobra d-mo" aria-label="Mão de obra">
+    <div class="mo-wrap">
+      <div class="mo-olho"><span>Orçamento</span><b>Mão de obra</b></div>
+      <h2>Mão de obra <em>por bueiro</em></h2>
+      <div class="mo-tab" role="table" aria-label="Custo de mão de obra por etapa">
+        <div class="mo-lin mo-cab" role="row"><span role="columnheader">Etapa</span><span role="columnheader">Valor por bueiro</span><span role="columnheader">100 bueiros</span></div>
+        <div class="mo-lin" style="--i:0" role="row"><span class="mo-et" role="cell">Fabricação / usinagem / soldagem da estrutura</span><span class="mo-v" role="cell" data-l="Por bueiro">R$ 3.000 – 5.000</span><span class="mo-v" role="cell" data-l="100 bueiros">R$ 300.000 – 500.000</span></div><div class="mo-lin" style="--i:1" role="row"><span class="mo-et" role="cell">Montagem mecânica</span><span class="mo-v" role="cell" data-l="Por bueiro">R$ 1.000 – 1.800</span><span class="mo-v" role="cell" data-l="100 bueiros">R$ 100.000 – 180.000</span></div><div class="mo-lin" style="--i:2" role="row"><span class="mo-et" role="cell">Montagem elétrica / automação</span><span class="mo-v" role="cell" data-l="Por bueiro">R$ 1.500 – 2.500</span><span class="mo-v" role="cell" data-l="100 bueiros">R$ 150.000 – 250.000</span></div><div class="mo-lin" style="--i:3" role="row"><span class="mo-et" role="cell">Instalação em campo</span><span class="mo-v" role="cell" data-l="Por bueiro">R$ 1.000 – 2.000</span><span class="mo-v" role="cell" data-l="100 bueiros">R$ 100.000 – 200.000</span></div><div class="mo-lin" style="--i:4" role="row"><span class="mo-et" role="cell">Testes e comissionamento</span><span class="mo-v" role="cell" data-l="Por bueiro">R$ 500 – 1.000</span><span class="mo-v" role="cell" data-l="100 bueiros">R$ 50.000 – 100.000</span></div>
+        <div class="mo-lin mo-tot" style="--i:5" role="row"><span class="mo-et" role="cell">Total</span><span class="mo-v" role="cell" data-l="Por bueiro">R$ 7.000 – 12.300</span><span class="mo-v" role="cell" data-l="100 bueiros">R$ 700.000 – 1.230.000</span></div>
+      </div>
+    </div>
   </section>
 
   <section class="dobra d-pv" aria-label="Pitch de 3 minutos">
