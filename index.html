@@ -1601,6 +1601,16 @@ document.addEventListener('DOMContentLoaded',function(){[].forEach.call(document
 }
 @media (prefers-reduced-motion:reduce){.d-mo .mo-olho,.d-mo h2,.d-mo .mo-lin{opacity:1;transform:none;animation:none!important}}
 </style>
+<style>
+.d-ct .ct-op{font-style:normal;color:#FF6A13;margin-right:.35em;font-family:'Highrise','Anton',Impact,sans-serif}
+.d-ct .mo-lin{padding-top:clamp(18px,3.4vh,32px);padding-bottom:clamp(18px,3.4vh,32px)}
+.d-ct .mo-cab{padding-top:clamp(10px,1.6vh,14px);padding-bottom:clamp(10px,1.6vh,14px)}
+.d-ct .mo-tot .mo-v{font-size:clamp(22px,2.6vw,44px)}
+.d-ct .mo-tot .mo-et{font-size:clamp(22px,2.4vw,38px)}
+.d-ct .ct-nota{margin:clamp(14px,2.4vh,24px) 0 0;max-width:760px;font:400 clamp(12px,1vw,14px)/1.5 'Liberation Sans',Arial,sans-serif;color:#9a948a;opacity:0}
+.d-ct.ativa .ct-nota{animation:moSobe .8s 1.1s cubic-bezier(.2,.8,.2,1) both}
+@media (max-width:720px){.d-ct .mo-lin{padding-top:14px;padding-bottom:14px}.d-ct .mo-tot .mo-v{font-size:18px}.d-ct .mo-tot .mo-et{font-size:20px}}
+</style>
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
@@ -2817,6 +2827,22 @@ setInterval(()=>$('#pb').classList.contains('o')&amp;&amp;render(),30000);
       </div>
     </div>
   </section>
+
+  <!-- ================= DOBRA: CUSTO TOTAL (equipamentos + mão de obra) ================= -->
+  <section class="dobra d-mo d-ct" aria-label="Custo total">
+    <div class="mo-wrap">
+      <div class="mo-olho"><span>Orçamento</span><b>Custo total</b></div>
+      <h2>Custo total <em>do projeto</em></h2>
+      <div class="mo-tab" role="table" aria-label="Soma de equipamentos e mão de obra">
+        <div class="mo-lin mo-cab" role="row"><span role="columnheader">Item</span><span role="columnheader">Valor por bueiro</span><span role="columnheader">100 bueiros</span></div>
+        <div class="mo-lin" style="--i:0" role="row"><span class="mo-et" role="cell">Equipamentos e materiais</span><span class="mo-v" role="cell" data-l="Por bueiro">R$ 9.629,52</span><span class="mo-v" role="cell" data-l="100 bueiros">R$ 962.952,00</span></div>
+        <div class="mo-lin" style="--i:1" role="row"><span class="mo-et" role="cell"><i class="ct-op">+</i> Mão de obra</span><span class="mo-v" role="cell" data-l="Por bueiro">R$ 7.000 – 12.300</span><span class="mo-v" role="cell" data-l="100 bueiros">R$ 700.000 – 1.230.000</span></div>
+        <div class="mo-lin mo-tot" style="--i:2" role="row"><span class="mo-et" role="cell"><i class="ct-op">=</i> Custo total</span><span class="mo-v" role="cell" data-l="Por bueiro">R$ 16.629,52 – 21.929,52</span><span class="mo-v" role="cell" data-l="100 bueiros">R$ 1.662.952 – 2.192.952</span></div>
+      </div>
+      <p class="ct-nota">Equipamentos: total da planilha de materiais, por bueiro. Aço inox, aço galvanizado e PEAD ainda serão calculados pela área de cada projeto.</p>
+    </div>
+  </section>
+
 
   <section class="dobra d-pv" aria-label="Pitch de 3 minutos">
 <section class="pv" id="pitch" aria-labelledby="pv-h">
