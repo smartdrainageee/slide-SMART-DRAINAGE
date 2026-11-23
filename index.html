@@ -8,6 +8,13 @@
    reduzido para caber na largura) e poe os botoes de voltar/avancar embaixo. Deitado ou no computador, o site e o normal. */
 (function(){try{
   if(window.name==='sd-embed'){document.documentElement.className+=' embed';return;}
+  /* celular de verdade: usa a versao leve (celular.html), se ela estiver ao lado deste arquivo */
+  if(!/celular\.html$/.test(location.pathname)){try{
+    if(matchMedia('(pointer:coarse)').matches&&Math.min(screen.width,screen.height)<=820){
+      var xh=new XMLHttpRequest();xh.open('HEAD','celular.html',false);xh.send();
+      if(xh.status===200){location.replace('celular.html'+location.hash);return;}
+    }
+  }catch(e){}}
   var mq=matchMedia('(orientation:portrait) and (max-width:900px)');
   if(!mq.matches){var ch=function(){location.reload();};if(mq.addEventListener)mq.addEventListener('change',ch);else if(mq.addListener)mq.addListener(ch);return;}
   var W=1024,H=576,base=location.href.split('#')[0],h=parseInt((location.hash||'').slice(1),10)||1;
