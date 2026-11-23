@@ -4203,13 +4203,13 @@ function start(){
 /* pitch: o player do YouTube só é criado quando a pessoa clica (ou aperta Enter/Espaço) na capa */
 (function(){
   var sec=document.getElementById('pitch'), tela=sec.querySelector('.pv-tela');
-  var id=tela.dataset.video, web=/^https?:$/.test(location.protocol);
+  var id=tela.dataset.video, web=/^https?:$/.test(location.protocol), po=location.origin; try{ if(!web&&window.parent!==window&&/^https?:$/.test(parent.location.protocol)){web=true;po=parent.location.origin;} }catch(e){}
   function tocar(){
     if(tela.classList.contains('tocando')) return;
     // aberto direto do computador (arquivo, sem endereço de site): o YouTube bloqueia o player. Avisa aqui mesmo, sem sair da página.
     if(!web){ tela.classList.add('aviso'); return; }
     var f=document.createElement('iframe');
-    f.src='https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=0&origin='+encodeURIComponent(location.origin);
+    f.src='https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=0&origin='+encodeURIComponent(po);
     f.title='Pitch do Smart Drainage'; f.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
     f.allowFullscreen=true; f.referrerPolicy='strict-origin-when-cross-origin';
     tela.appendChild(f); tela.classList.add('tocando'); tela.removeAttribute('role'); tela.removeAttribute('tabindex');
